@@ -15,6 +15,7 @@ export default class Header extends Component {
           BookShelf
         </Link>
         <div className='right menu'>
+          {/* TODO: rework menus to Hocs */}
           {isLogged && (
             <div className='right menu'>
               <Link to='/profile' className='item'>
