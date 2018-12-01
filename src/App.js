@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as Pages from "./screens";
 import { Header, Footer } from "./components";
 import { getUser } from "./store/selectors/userSelectors";
+import PrivateRoute from "./HOCs/PrivateRoute";
 
 class App extends Component {
   render() {
@@ -18,10 +19,27 @@ class App extends Component {
             <Route path='/login' component={Pages.LoginPage} />
             <Route path='/sign-up' component={Pages.RegisterPage} />
             <Route path='/reset-password' component={Pages.ResetPassword} />
-            <Route path='/profile' component={Pages.ProfilePage} />
-            <Route path='/books' exact component={Pages.BooksPage} />
-            <Route path='/books/:id' component={Pages.BookPage} />
-            <Route path='/books/new' component={Pages.AddBookPage} />
+            <PrivateRoute
+              path='/profile'
+              component={Pages.ProfilePage}
+              user={user}
+            />
+            <PrivateRoute
+              path='/books'
+              exact
+              component={Pages.BooksPage}
+              user={user}
+            />
+            <PrivateRoute
+              path='/books/:id'
+              component={Pages.BookPage}
+              user={user}
+            />
+            <PrivateRoute
+              path='/books/new'
+              component={Pages.AddBookPage}
+              user={user}
+            />
           </Switch>
           <Footer />
         </div>

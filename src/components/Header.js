@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes, { object } from "prop-types";
+import { object } from "prop-types";
+
+import withAuth from "../HOCs/withAuth";
+import LoggedMenu from "./LoggedMenu";
+import NotLoggedMenu from "./NotLoggedMenu";
 
 export default class Header extends Component {
   static propTypes = {
     user: object.isRequired
   };
   render() {
-    const isLogged = Object.keys(this.props.user).length !== 0;
+    const { user } = this.props;
 
     return (
       <div className='ui secondary pointing menu'>
@@ -15,25 +19,7 @@ export default class Header extends Component {
           BookShelf
         </Link>
         <div className='right menu'>
-          {/* TODO: rework menus to Hocs */}
-          {isLogged && (
-            <div className='right menu'>
-              <Link to='/profile' className='item'>
-                Profile
-              </Link>
-              <Link to='/books' className='item'>
-                Books
-              </Link>
-              <Link to='/logout' className='item'>
-                Logout
-              </Link>
-            </div>
-          )}
-          {!isLogged && (
-            <Link to='/login' className='item'>
-              Login
-            </Link>
-          )}
+          {withAuth(LoggedMenu, NotLoggedMenu, user)}
         </div>
       </div>
     );
