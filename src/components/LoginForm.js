@@ -25,7 +25,6 @@ class LoginForm extends Component {
           {props => {
             const {
               values,
-              touched,
               errors,
               isSubmitting,
               handleChange,
