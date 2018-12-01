@@ -1,21 +1,83 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   render() {
     return (
-      <div className='ui form'>
-        <div className='field'>
-          <label htmlFor='email'>Email</label>
-          <input type='email' name='email' placeholder='Email' />
-        </div>
-        <div className='field'>
-          <label htmlFor='password'>Password</label>
-          <input type='password' name='password' placeholder='Password' />
-        </div>
-        <div className='field'>
-          <button className='ui button primary'>Login</button>
-        </div>
+      <>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          // TODO: make validation schema
+          validationSchema={Yup.object().shape({
+            email: Yup.string()
+              .email()
+              .required("Required")
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 500);
+          }}
+        >
+          {props => {
+            const {
+              values,
+              touched,
+              errors,
+              isSubmitting,
+              handleChange,
+              handleBlur,
+              handleSubmit
+            } = props;
+            console.log(errors);
+            return (
+              <form
+                onSubmit={handleSubmit}
+                className={`ui form ${errors ? "error" : ""}`}
+              >
+                <div className='field'>
+                  <label htmlFor='email'>Email</label>
+                  <input
+                    type='email'
+                    name='email'
+                    placeholder='Email'
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.email && (
+                    <div className='ui error message'>
+                      <p>{errors.email}</p>
+                    </div>
+                  )}
+                </div>
+                <div className='field'>
+                  <label htmlFor='password'>Password</label>
+                  <input
+                    type='password'
+                    name='password'
+                    placeholder='Password'
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                <div className='field'>
+                  <button
+                    className='ui button primary'
+                    type='submit'
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Logging In" : "Login"}
+                  </button>
+                </div>
+              </form>
+            );
+          }}
+        </Formik>
         <div className='ui segment'>
           <Link className='floated left' to='/reset-password'>
             Forgot Password?
@@ -24,7 +86,9 @@ export default class LoginForm extends Component {
         <div className='ui segment'>
           <Link to='/sign-up'>Sign Up</Link>
         </div>
-      </div>
+      </>
     );
   }
 }
+
+export default LoginForm;
