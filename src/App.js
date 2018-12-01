@@ -14,33 +14,35 @@ class App extends Component {
       <Router>
         <div className='ui container'>
           <Header user={user} />
-          <Switch>
-            <Route path='/' exact component={Pages.MainPage} />
-            <Route path='/login' component={Pages.LoginPage} />
-            <Route path='/sign-up' component={Pages.RegisterPage} />
-            <Route path='/reset-password' component={Pages.ResetPassword} />
-            <PrivateRoute
-              path='/profile'
-              component={Pages.ProfilePage}
-              user={user}
-            />
-            <PrivateRoute
-              path='/books'
-              exact
-              component={Pages.BooksPage}
-              user={user}
-            />
-            <PrivateRoute
-              path='/books/:id'
-              component={Pages.BookPage}
-              user={user}
-            />
-            <PrivateRoute
-              path='/books/new'
-              component={Pages.AddBookPage}
-              user={user}
-            />
-          </Switch>
+          <div className='main'>
+            <Switch>
+              <Route path='/' exact component={Pages.MainPage} />
+              <Route path='/login' component={Pages.LoginPage} />
+              <Route path='/sign-up' component={Pages.RegisterPage} />
+              <Route path='/reset-password' component={Pages.ResetPassword} />
+              <PrivateRoute
+                path='/profile'
+                component={Pages.ProfilePage}
+                user={user}
+              />
+              <PrivateRoute
+                path='/books'
+                exact
+                component={Pages.BooksPage}
+                user={user}
+              />
+              <PrivateRoute
+                path='/books/:id'
+                component={Pages.BookPage}
+                user={user}
+              />
+              <PrivateRoute
+                path='/books/new'
+                component={Pages.AddBookPage}
+                user={user}
+              />
+            </Switch>
+          </div>
           <Footer />
         </div>
       </Router>
