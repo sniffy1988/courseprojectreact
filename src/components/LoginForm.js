@@ -13,7 +13,8 @@ class LoginForm extends Component {
           validationSchema={Yup.object().shape({
             email: Yup.string()
               .email()
-              .required("Required")
+              .required("Required"),
+              password: Yup.string().required("Required")
           })}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -63,6 +64,11 @@ class LoginForm extends Component {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
+                  {errors.password && (
+                    <div className='ui error message'>
+                      <p>{errors.password}</p>
+                    </div>
+                  )}
                 </div>
                 <div className='field'>
                   <button
