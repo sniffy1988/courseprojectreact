@@ -13,7 +13,7 @@ import {
 const initialState = {
   user: {},
   token: "",
-  userId: 0,
+  userId: 1,
   isLoading: false,
   error: ""
 };

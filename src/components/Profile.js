@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import { getUser } from "../store/selectors/userSelectors";
+import { getProfile } from "../store/actions/UserActions";
+import { getUser, getUserId, getToken } from "../store/selectors/userSelectors";
 
 class Profile extends Component {
+  componentDidMount() {
+    const { getProfile, userId, token } = this.props;
+    getProfile({
+      id: userId,
+      token
+    });
+  }
   render() {
     const { user } = this.props;
     const { firstName, lastName, email } = user;
@@ -23,7 +32,13 @@ class Profile extends Component {
 
 export default connect(
   state => {
-    return { user: getUser(state) };
+    return {
+      user: getUser(state),
+      userId: getUserId(state),
+      token: getToken(state)
+    };
   },
-  null
+  dispatch => {
+    return { getProfile: bindActionCreators(getProfile, dispatch) };
+  }
 )(Profile);
