@@ -4,16 +4,16 @@ import { connect } from "react-redux";
 
 import * as Pages from "./screens";
 import { Header, Footer } from "./components";
-import { getUser } from "./store/selectors/userSelectors";
+import { getUserId } from "./store/selectors/userSelectors";
 import PrivateRoute from "./HOCs/PrivateRoute";
 
 class App extends Component {
   render() {
-    const { user } = this.props;
+    const { userId } = this.props;
     return (
       <Router>
         <div className='ui container'>
-          <Header user={user} />
+          <Header userId={userId} />
           <div className='main'>
             <Switch>
               <Route path='/' exact component={Pages.MainPage} />
@@ -23,23 +23,23 @@ class App extends Component {
               <PrivateRoute
                 path='/profile'
                 component={Pages.ProfilePage}
-                user={user}
+                userId={userId}
               />
               <PrivateRoute
                 path='/books'
                 exact
                 component={Pages.BooksPage}
-                user={user}
+                userId={userId}
               />
               <PrivateRoute
                 path='/books/:id'
                 component={Pages.BookPage}
-                user={user}
+                userId={userId}
               />
               <PrivateRoute
                 path='/books/new'
                 component={Pages.AddBookPage}
-                user={user}
+                userId={userId}
               />
             </Switch>
           </div>
@@ -52,9 +52,7 @@ class App extends Component {
 
 export default connect(
   state => {
-    return {
-      user: getUser(state)
-    };
+    return { userId: getUserId(state) };
   },
   null
 )(App);

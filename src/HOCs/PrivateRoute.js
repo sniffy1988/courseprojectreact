@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isLogged = rest.user && Object.keys(rest.user).length !== 0;
+  const isLogged = rest.userId !== 0;
 
   return (
     <Route

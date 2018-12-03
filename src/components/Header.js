@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { object } from "prop-types";
+import { number } from "prop-types";
 
 import withAuth from "../HOCs/withAuth";
 import LoggedMenu from "./LoggedMenu";
@@ -8,10 +8,10 @@ import NotLoggedMenu from "./NotLoggedMenu";
 
 export default class Header extends Component {
   static propTypes = {
-    user: object.isRequired
+    userId: number.isRequired
   };
   render() {
-    const { user } = this.props;
+    const { userId } = this.props;
 
     return (
       <div className='ui secondary pointing menu'>
@@ -19,7 +19,7 @@ export default class Header extends Component {
           BookShelf
         </Link>
         <div className='right menu'>
-          {withAuth(LoggedMenu, NotLoggedMenu, user)}
+          {withAuth(LoggedMenu, NotLoggedMenu, userId)}
         </div>
       </div>
     );

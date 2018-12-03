@@ -4,11 +4,16 @@ import {
   USER_REQUEST_FAILED,
   USER_REGISTER,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAILED
+  USER_REGISTER_FAILED,
+  PROFILE_REQUEST,
+  PROFILE_REQUEST_SUCCESS,
+  PROFILE_REQUEST_FAILED
 } from "../actions/UserActions";
 
 const initialState = {
   user: {},
+  token: "",
+  userId: 0,
   isLoading: false,
   error: ""
 };
@@ -23,7 +28,8 @@ export default (state = initialState, action) => {
     case USER_REQUEST_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        token: action.payload.token,
+        userId: action.payload.userId,
         isLoading: false,
         error: ""
       };
@@ -42,7 +48,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        user: action.payload,
+        token: action.payload.token,
+        userId: action.payload.userId,
         error: ""
       };
     case USER_REGISTER_FAILED:
@@ -50,6 +57,24 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: ""
+      };
+    case PROFILE_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case PROFILE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: "",
+        user: action.payload
+      };
+    case PROFILE_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
       };
     default:
       return state;

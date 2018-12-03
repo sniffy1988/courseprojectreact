@@ -8,6 +8,9 @@ export const USER_REQUEST_FAILED = "user/USER_FAILED";
 export const USER_REGISTER = "user/REGISTER_REQUEST";
 export const USER_REGISTER_SUCCESS = "user/USER_REGISTER_SUCCESS";
 export const USER_REGISTER_FAILED = "user/USER_REGISTER_FAILED";
+export const PROFILE_REQUEST = "user/PROFILE_REQUEST";
+export const PROFILE_REQUEST_SUCCESS = "user/PROFILE_REQUEST_SUCCESS";
+export const PROFILE_REQUEST_FAILED = "user/PROFILE_REQUEST_FAILED";
 
 // TODO: mock data calls to login/register;
 export const makeLogin = ({ email, password }) => async dispatch => {
@@ -48,6 +51,30 @@ export const makeRegisterUser = values => async dispatch => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAILED,
+      payload: error.message
+    });
+  }
+};
+
+export const getProfile = ({ id, token }) => async dispatch => {
+  dispatch({
+    type: PROFILE_REQUEST
+  });
+
+  //make profile call
+
+  try {
+    const { data } = await axios.get(`${API_URL}/${id}`, {
+      token,
+      id
+    });
+    dispatch({
+      type: PROFILE_REQUEST_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_REQUEST_FAILED,
       payload: error.message
     });
   }
