@@ -9,7 +9,6 @@ class LoginForm extends Component {
       <>
         <Formik
           initialValues={{ email: "", password: "" }}
-          // TODO: make validation schema
           validationSchema={Yup.object().shape({
             email: Yup.string()
               .email()
