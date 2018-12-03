@@ -32,7 +32,6 @@ class LoginForm extends Component {
               handleBlur,
               handleSubmit
             } = props;
-            console.log(errors);
             return (
               <form
                 onSubmit={handleSubmit}
