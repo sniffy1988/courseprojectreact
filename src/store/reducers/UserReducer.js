@@ -5,7 +5,11 @@ import {
 } from "../actions/UserActions";
 
 const initialState = {
-  user: {},
+  user: {
+    firstName: "Anton",
+    lastName: "Lobodenko",
+    email: "sniffy1988@gmail.com"
+  },
   isLoading: false,
   error: ""
 };
