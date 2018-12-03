@@ -16,7 +16,7 @@ export const makeLogin = ({ email, password }) => async dispatch => {
   });
   //make call to server
   try {
-    const { data } = await axios.post(API_URL, {
+    const { data } = await axios.post(`${API_URL}/login`, {
       email,
       password
     });
@@ -40,7 +40,7 @@ export const makeRegisterUser = values => async dispatch => {
   });
 
   try {
-    const { data } = await axios.post(API_URL, values);
+    const { data } = await axios.post(`${API_URL}/signup`, values);
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data
