@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 
+import FormField from "./FormField";
+
 //TODO: rework with formik
 export default class ForgotPasswordForm extends Component {
   render() {
@@ -39,38 +41,28 @@ export default class ForgotPasswordForm extends Component {
               onSubmit={handleSubmit}
               className={`ui form ${errors ? "error" : ""}`}
             >
-              <div className="field">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.email && (
-                  <div className="ui error message">
-                    <p>{errors.email}</p>
-                  </div>
-                )}
-              </div>
-              <div className="field">
-                <label htmlFor="newPassword">New Password</label>
-                <input
-                  type="password"
-                  name="newPassword"
-                  id="newPassword"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.password && (
-                  <div className="ui error message">
-                    <p>{errors.password}</p>
-                  </div>
-                )}
-              </div>
+              <FormField
+                name={"email"}
+                id={"email"}
+                type={"email"}
+                text={"Email"}
+                placeholder={"Email"}
+                value={values.email}
+                onChangeHandler={handleChange}
+                onBlurHandler={handleBlur}
+                error={errors.email}
+              />
+              <FormField
+                name={"newPassword"}
+                id={"newPassword"}
+                type={"password"}
+                text={"New Password"}
+                placeholder={"New Password"}
+                value={values.password}
+                onChangeHandler={handleChange}
+                onBlurHandler={handleBlur}
+                error={errors.password}
+              />
               <div className="field">
                 <button className="ui button primary" type="submit">
                   {isSubmitting ? "Sending..." : "Reset Password"}

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+import FormField from "./FormField";
+
 class LoginForm extends Component {
   render() {
     return (
@@ -13,7 +15,7 @@ class LoginForm extends Component {
             email: Yup.string()
               .email()
               .required("Required"),
-              password: Yup.string().required("Required")
+            password: Yup.string().required("Required")
           })}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -36,42 +38,32 @@ class LoginForm extends Component {
                 onSubmit={handleSubmit}
                 className={`ui form ${errors ? "error" : ""}`}
               >
-                <div className='field'>
-                  <label htmlFor='email'>Email</label>
-                  <input
-                    type='email'
-                    name='email'
-                    placeholder='Email'
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.email && (
-                    <div className='ui error message'>
-                      <p>{errors.email}</p>
-                    </div>
-                  )}
-                </div>
-                <div className='field'>
-                  <label htmlFor='password'>Password</label>
-                  <input
-                    type='password'
-                    name='password'
-                    placeholder='Password'
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.password && (
-                    <div className='ui error message'>
-                      <p>{errors.password}</p>
-                    </div>
-                  )}
-                </div>
-                <div className='field'>
+                <FormField
+                  type="email"
+                  text="Email"
+                  name="email"
+                  id="email"
+                  placeholder={"Email"}
+                  onChangeHandler={handleChange}
+                  onBlurHandler={handleBlur}
+                  error={errors.email}
+                  value={values.email}
+                />
+                <FormField
+                  type="password"
+                  text="Password"
+                  name="password"
+                  id="password"
+                  placeholder={"Password"}
+                  onChangeHandler={handleChange}
+                  onBlurHandler={handleBlur}
+                  error={errors.password}
+                  value={values.password}
+                />
+                <div className="field">
                   <button
-                    className='ui button primary'
-                    type='submit'
+                    className="ui button primary"
+                    type="submit"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Logging In" : "Login"}
@@ -81,13 +73,13 @@ class LoginForm extends Component {
             );
           }}
         </Formik>
-        <div className='ui segment'>
-          <Link className='floated left' to='/reset-password'>
+        <div className="ui segment">
+          <Link className="floated left" to="/reset-password">
             Forgot Password?
           </Link>
         </div>
-        <div className='ui segment'>
-          <Link to='/sign-up'>Sign Up</Link>
+        <div className="ui segment">
+          <Link to="/sign-up">Sign Up</Link>
         </div>
       </>
     );
