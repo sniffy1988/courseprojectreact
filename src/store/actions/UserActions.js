@@ -9,6 +9,7 @@ export const USER_REGISTER = "user/REGISTER_REQUEST";
 export const USER_REGISTER_SUCCESS = "user/USER_REGISTER_SUCCESS";
 export const USER_REGISTER_FAILED = "user/USER_REGISTER_FAILED";
 
+// TODO: mock data calls to login/register;
 export const makeLogin = ({ email, password }) => async dispatch => {
   dispatch({
     type: USER_REQUEST
