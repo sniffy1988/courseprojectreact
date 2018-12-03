@@ -1,9 +1,29 @@
 import React, { Component } from "react";
-//TODO: Add profile component;
+import { connect } from "react-redux";
+
+import { getUser } from "../store/selectors/userSelectors";
+
 class Profile extends Component {
   render() {
-    return <div>This is profile</div>;
+    const { user } = this.props;
+    const { firstName, lastName, email } = user;
+    return (
+      <div className='ui card'>
+        <div className='content'>
+          <span className='header'>{`${firstName} ${lastName}`}</span>
+          <div className='meta'>
+            <span className='date'>{email}</span>
+          </div>
+          <div className='description'>It's your account info</div>
+        </div>
+      </div>
+    );
   }
 }
 
-export default Profile;
+export default connect(
+  state => {
+    return { user: getUser(state) };
+  },
+  null
+)(Profile);
