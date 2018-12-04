@@ -109,7 +109,7 @@ export const userDelete = (userId, history) => async dispatch => {
   });
 
   try {
-    const { data } = await axios.delete(`${API_URL}/${userId}`);
+    //const { data } = await axios.delete(`${API_URL}/${userId}`);
 
     dispatch({
       type: USER_DELETE_SUCCESS
