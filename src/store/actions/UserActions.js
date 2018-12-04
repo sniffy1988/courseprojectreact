@@ -11,39 +11,48 @@ export const USER_REGISTER_FAILED = "user/USER_REGISTER_FAILED";
 export const PROFILE_REQUEST = "user/PROFILE_REQUEST";
 export const PROFILE_REQUEST_SUCCESS = "user/PROFILE_REQUEST_SUCCESS";
 export const PROFILE_REQUEST_FAILED = "user/PROFILE_REQUEST_FAILED";
+export const USER_LOGOUT = "user/USER_LOGOUT";
 
-// TODO: mock data calls to login/register;
 export const makeLogin = ({ email, password }) => async dispatch => {
   dispatch({
     type: USER_REQUEST
   });
   //make call to server
   try {
-    const { data } = await axios.post(`${API_URL}/login`, {
-      email,
-      password
-    });
+    // const { data } = await axios.post(`${API_URL}/login`, {
+    //   email,
+    //   password
+    // });
+    const data = {
+      token: "test",
+      userId: 102
+    };
 
     dispatch({
       type: USER_REQUEST_SUCCESS,
       payload: data
     });
+    return true;
   } catch (error) {
     dispatch({
       type: USER_REQUEST_FAILED,
       payload: error.message
     });
+    return false;
   }
 };
 
 export const makeRegisterUser = values => async dispatch => {
-  console.log(values);
   dispatch({
     type: USER_REGISTER
   });
 
   try {
-    const { data } = await axios.post(`${API_URL}/signup`, values);
+    // const { data } = await axios.post(`${API_URL}/signup`, values);
+    const data = {
+      token: "test",
+      userId: 102
+    };
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data
@@ -78,4 +87,10 @@ export const getProfile = ({ id, token }) => async dispatch => {
       payload: error.message
     });
   }
+};
+
+export const makeLogout = () => dispatch => {
+  dispatch({
+    type: USER_LOGOUT
+  });
 };

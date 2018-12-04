@@ -17,13 +17,13 @@ class Profile extends Component {
     const { user } = this.props;
     const { firstName, lastName, email } = user;
     return (
-      <div className='ui card'>
-        <div className='content'>
-          <span className='header'>{`${firstName} ${lastName}`}</span>
-          <div className='meta'>
-            <span className='date'>{email}</span>
+      <div className="ui card">
+        <div className="content">
+          <span className="header">{`${firstName} ${lastName}`}</span>
+          <div className="meta">
+            <span className="date">{email}</span>
           </div>
-          <div className='description'>It's your account info</div>
+          <div className="description">It's your account info</div>
         </div>
       </div>
     );

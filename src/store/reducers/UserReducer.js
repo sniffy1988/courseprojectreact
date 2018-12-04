@@ -7,7 +7,8 @@ import {
   USER_REGISTER_FAILED,
   PROFILE_REQUEST,
   PROFILE_REQUEST_SUCCESS,
-  PROFILE_REQUEST_FAILED
+  PROFILE_REQUEST_FAILED,
+  USER_LOGOUT
 } from "../actions/UserActions";
 
 const initialState = {
@@ -76,6 +77,8 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: action.payload
       };
+    case USER_LOGOUT:
+      return initialState;
     default:
       return state;
   }

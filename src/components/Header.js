@@ -12,13 +12,12 @@ export default class Header extends Component {
   };
   render() {
     const { userId } = this.props;
-
     return (
-      <div className='ui secondary pointing menu'>
-        <Link className='item' to='/'>
+      <div className="ui secondary pointing menu">
+        <Link className="item" to="/">
           BookShelf
         </Link>
-        <div className='right menu'>
+        <div className="right menu">
           {withAuth(LoggedMenu, NotLoggedMenu, userId)}
         </div>
       </div>

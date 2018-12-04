@@ -4,6 +4,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
+
 import { makeLogin } from "../store/actions/UserActions";
 
 import FormField from "./FormField";
@@ -21,8 +23,9 @@ class LoginForm extends Component {
           password: Yup.string().required("Required")
         })}
         onSubmit={(values, { setSubmitting }) => {
-          this.props.makeLogin(values);
-          setSubmitting(false);
+          const result = this.props.makeLogin(values);
+          setSubmitting(result);
+          this.props.history.push("/");
         }}
       >
         {props => {
@@ -40,10 +43,10 @@ class LoginForm extends Component {
               className={`ui form ${errors ? "error" : ""}`}
             >
               <FormField
-                type='email'
-                text='Email'
-                name='email'
-                id='email'
+                type="email"
+                text="Email"
+                name="email"
+                id="email"
                 placeholder={"Email"}
                 onChangeHandler={handleChange}
                 onBlurHandler={handleBlur}
@@ -51,37 +54,37 @@ class LoginForm extends Component {
                 value={values.email}
               />
               <FormField
-                type='password'
-                text='Password'
-                name='password'
-                id='password'
+                type="password"
+                text="Password"
+                name="password"
+                id="password"
                 placeholder={"Password"}
                 onChangeHandler={handleChange}
                 onBlurHandler={handleBlur}
                 error={errors.password}
                 value={values.password}
               />
-              <div className='field'>
+              <div className="field">
                 <button
-                  className='ui button primary'
-                  type='submit'
+                  className="ui button primary"
+                  type="submit"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Logging In" : "Login"}
                 </button>
               </div>
               {this.props.error && (
-                <div className='ui error message'>
+                <div className="ui error message">
                   <p>{this.props.error}</p>
                 </div>
               )}
-              <div className='ui segment'>
-                <Link className='floated left' to='/reset-password'>
+              <div className="ui segment">
+                <Link className="floated left" to="/reset-password">
                   Forgot Password?
                 </Link>
               </div>
-              <div className='ui segment'>
-                <Link to='/sign-up'>Sign Up</Link>
+              <div className="ui segment">
+                <Link to="/sign-up">Sign Up</Link>
               </div>
             </form>
           );
@@ -91,13 +94,15 @@ class LoginForm extends Component {
   }
 }
 
-export default connect(
-  state => {
-    return {
-      error: getError(state)
-    };
-  },
-  dispatch => {
-    return { makeLogin: bindActionCreators(makeLogin, dispatch) };
-  }
-)(LoginForm);
+export default withRouter(
+  connect(
+    state => {
+      return {
+        error: getError(state)
+      };
+    },
+    dispatch => {
+      return { makeLogin: bindActionCreators(makeLogin, dispatch) };
+    }
+  )(LoginForm)
+);
