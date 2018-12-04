@@ -30,6 +30,7 @@ export const makeLogin = ({ email, password }) => async dispatch => {
       token: "test",
       userId: 102
     };
+    window.localStorage.setItem("store", JSON.stringify(data));
 
     dispatch({
       type: USER_REQUEST_SUCCESS,
@@ -56,6 +57,8 @@ export const makeRegisterUser = values => async dispatch => {
       token: "test",
       userId: 102
     };
+    window.localStorage.setItem("store", JSON.stringify(data));
+
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data
@@ -85,6 +88,10 @@ export const getProfile = ({ id, token }) => async dispatch => {
       lastName: "Lobodenko",
       email: "sniffy1988@gmail.com"
     };
+    let localStore = JSON.parse(window.localStorage.getItem("store"));
+    localStore = Object.assign(localStore, data);
+    console.log(localStore);
+    window.localStorage.setItem("store", JSON.stringify(localStore));
     dispatch({
       type: PROFILE_REQUEST_SUCCESS,
       payload: data

@@ -14,13 +14,20 @@ import {
   USER_DELETE_FAILED
 } from "../actions/UserActions";
 
-const initialState = {
-  user: {},
-  token: "",
-  userId: 0,
-  isLoading: false,
-  error: ""
-};
+const itemFromStore = JSON.parse(window.localStorage.getItem("store"));
+const initialState = itemFromStore
+  ? itemFromStore
+  : {
+      user: {
+        firstName: "",
+        lastName: "",
+        email: ""
+      },
+      token: "",
+      userId: 0,
+      isLoading: false,
+      error: ""
+    };
 export default (state = initialState, action) => {
   switch (action.type) {
     case USER_REQUEST:

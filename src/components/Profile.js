@@ -26,6 +26,7 @@ class Profile extends Component {
     userDelete(userId, history);
   };
   render() {
+    console.log(this.props);
     const { user, error } = this.props;
     const { firstName, lastName, email } = user;
     return (
