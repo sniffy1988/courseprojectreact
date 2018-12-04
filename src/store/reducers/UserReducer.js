@@ -8,7 +8,10 @@ import {
   PROFILE_REQUEST,
   PROFILE_REQUEST_SUCCESS,
   PROFILE_REQUEST_FAILED,
-  USER_LOGOUT
+  USER_LOGOUT,
+  USER_DELETE,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAILED
 } from "../actions/UserActions";
 
 const initialState = {
@@ -79,6 +82,21 @@ export default (state = initialState, action) => {
       };
     case USER_LOGOUT:
       return initialState;
+    case USER_DELETE:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case USER_DELETE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false
+      };
+    case USER_DELETE_FAILED:
+      return {
+        ...state,
+        error: action.payload
+      };
     default:
       return state;
   }

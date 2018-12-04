@@ -12,6 +12,9 @@ export const PROFILE_REQUEST = "user/PROFILE_REQUEST";
 export const PROFILE_REQUEST_SUCCESS = "user/PROFILE_REQUEST_SUCCESS";
 export const PROFILE_REQUEST_FAILED = "user/PROFILE_REQUEST_FAILED";
 export const USER_LOGOUT = "user/USER_LOGOUT";
+export const USER_DELETE = "user/USER_DELETE";
+export const USER_DELETE_SUCCESS = "user/USER_DELETE_SUCCESS";
+export const USER_DELETE_FAILED = "user/USER_DELETE_FAILED";
 
 export const makeLogin = ({ email, password }) => async dispatch => {
   dispatch({
@@ -73,10 +76,15 @@ export const getProfile = ({ id, token }) => async dispatch => {
   //make profile call
 
   try {
-    const { data } = await axios.get(`${API_URL}/${id}`, {
-      token,
-      id
-    });
+    // const { data } = await axios.get(`${API_URL}/${id}`, {
+    //   token,
+    //   id
+    // });
+    const data = {
+      firstName: "Anton",
+      lastName: "Lobodenko",
+      email: "sniffy1988@gmail.com"
+    };
     dispatch({
       type: PROFILE_REQUEST_SUCCESS,
       payload: data
@@ -93,4 +101,24 @@ export const makeLogout = () => dispatch => {
   dispatch({
     type: USER_LOGOUT
   });
+};
+
+export const userDelete = (userId, history) => async dispatch => {
+  dispatch({
+    type: USER_DELETE
+  });
+
+  try {
+    const { data } = await axios.delete(`${API_URL}/${userId}`);
+
+    dispatch({
+      type: USER_DELETE_SUCCESS
+    });
+    history.push("/logout");
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAILED,
+      payload: error.message
+    });
+  }
 };
