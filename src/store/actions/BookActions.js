@@ -88,3 +88,27 @@ export const deleteBook = (isbn, token) => async dispatch => {
     });
   }
 };
+
+export const updateBook = (book, token) => async dispatch => {
+  dispatch({
+    type: SINGLE_BOOK_UPDATE
+  });
+
+  try {
+    axios.put(`${API_URL}/books/${book.isbn}`, book, {
+      headers: {
+        token
+      }
+    });
+
+    dispatch({
+      type: SINGLE_BOOK_UPDATE_SUCCESS,
+      payload: book
+    });
+  } catch (error) {
+    dispatch({
+      type: SINGLE_BOOK_UPDATE_FAILED,
+      error: error.message
+    });
+  }
+};
