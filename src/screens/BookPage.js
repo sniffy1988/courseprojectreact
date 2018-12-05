@@ -16,7 +16,8 @@ class BookPage extends Component {
     getSingleBook(match.params.id, token);
   }
   handleEdit = isbn => {
-    console.log(this.props);
+    const { history, book } = this.props;
+    history.push(`/books/${isbn}/edit`, book);
   };
 
   handleDelete = isbn => {

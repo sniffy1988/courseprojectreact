@@ -27,7 +27,10 @@ class SingleBook extends Component {
         <p>Publisher:</p>
         <p>{book.publisher}</p>
         <div className={"ui buttons"}>
-          <button className={"ui button blue"} onClick={handeEdit}>
+          <button
+            className={"ui button blue"}
+            onClick={() => handeEdit(book.isbn)}
+          >
             Edit info
           </button>
           <button

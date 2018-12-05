@@ -6,3 +6,5 @@ export { default as ForgotPasswordForm } from "./ForgotPasswordForm";
 export { default as Books } from "./Books";
 export { default as BooksItem } from "./BooksItem";
 export { default as SingleBook } from "./SingleBook";
+export { default as AddBook } from "./AddBook";
+export { default as FormField } from "./FormField";
