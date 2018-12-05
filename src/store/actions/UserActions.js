@@ -89,8 +89,7 @@ export const getProfile = ({ id, token }) => async dispatch => {
       email: "sniffy1988@gmail.com"
     };
     let localStore = JSON.parse(window.localStorage.getItem("store"));
-    localStore = Object.assign(localStore, data);
-    console.log(localStore);
+    localStore = Object.assign(localStore, { user: data });
     window.localStorage.setItem("store", JSON.stringify(localStore));
     dispatch({
       type: PROFILE_REQUEST_SUCCESS,
