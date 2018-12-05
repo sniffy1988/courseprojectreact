@@ -66,3 +66,25 @@ export const getBook = (isbn, token) => async dispatch => {
     });
   }
 };
+
+export const deleteBook = (isbn, token) => async dispatch => {
+  dispatch({
+    type: SINGLE_BOOK_DELETE
+  });
+  try {
+    // const { data } = await axios.delete(`${API_URL}/books/${isbn}`, {
+    //   headers: { token }
+    // });
+
+    dispatch({
+      type: SINGLE_BOOK_DELETE_SUCCESS
+    });
+
+    getBooks(token);
+  } catch (error) {
+    dispatch({
+      type: SINGLE_BOOK_DELETE_FAILED,
+      payload: error.message
+    });
+  }
+};

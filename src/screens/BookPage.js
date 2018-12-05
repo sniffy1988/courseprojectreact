@@ -3,7 +3,10 @@ import { SingleBook } from "../components";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { getBook as getSingleBook } from "../store/actions/BookActions";
+import {
+  getBook as getSingleBook,
+  deleteBook
+} from "../store/actions/BookActions";
 import { getToken } from "../store/selectors/userSelectors";
 import { getBook } from "../store/selectors/BooksSelectors";
 
@@ -17,7 +20,9 @@ class BookPage extends Component {
   };
 
   handleDelete = isbn => {
-    console.log(isbn);
+    const { deleteBook, token, history } = this.props;
+    deleteBook(isbn, token);
+    history.push("/books");
   };
 
   render() {
@@ -42,7 +47,8 @@ export default connect(
   },
   dispatch => {
     return {
-      getSingleBook: bindActionCreators(getSingleBook, dispatch)
+      getSingleBook: bindActionCreators(getSingleBook, dispatch),
+      deleteBook: bindActionCreators(deleteBook, dispatch)
     };
   }
 )(BookPage);
