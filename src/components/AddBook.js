@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { withRouter } from "react-router-dom";
 
 import { FormField } from "../components";
+import ErrorMessage from "../components/ErrorMessage";
 
 class AddBook extends Component {
   static propTypes = {
@@ -20,7 +21,7 @@ class AddBook extends Component {
   };
 
   render() {
-    const { book } = this.props;
+    const { book, error } = this.props;
 
     return (
       <div>
@@ -176,6 +177,7 @@ class AddBook extends Component {
             );
           }}
         </Formik>
+        <ErrorMessage error={error} />
       </div>
     );
   }

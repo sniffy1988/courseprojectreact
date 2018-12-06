@@ -93,7 +93,7 @@ export const updateBook = (book, token) => async dispatch => {
   });
 
   try {
-    axios.put(`${API_URL}/books/${book.isbn}`, book, {
+    await axios.put(`${API_URL}/books/${book.isbn}`, book, {
       headers: {
         token
       }
@@ -106,7 +106,7 @@ export const updateBook = (book, token) => async dispatch => {
   } catch (error) {
     dispatch({
       type: SINGLE_BOOK_UPDATE_FAILED,
-      error: error.message
+      payload: error.message
     });
   }
 };
