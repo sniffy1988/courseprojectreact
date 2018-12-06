@@ -39,17 +39,14 @@ class App extends Component {
                 userId={userId}
               />
               <PrivateRoute
-                path='/books/new'
+                path='/add-book'
+                exact
                 component={Pages.AddBookPage}
                 userId={userId}
               />
               <PrivateRoute
+                exact
                 path='/books/:id/edit'
-                component={Pages.AddBookPage}
-                userId={userId}
-              />
-              <PrivateRoute
-                path='/books/new'
                 component={Pages.AddBookPage}
                 userId={userId}
               />

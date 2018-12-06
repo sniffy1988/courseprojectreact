@@ -10,7 +10,10 @@ import {
   SINGLE_BOOK_DELETE_FAILED,
   SINGLE_BOOK_UPDATE,
   SINGLE_BOOK_UPDATE_SUCCESS,
-  SINGLE_BOOK_UPDATE_FAILED
+  SINGLE_BOOK_UPDATE_FAILED,
+  SINGLE_BOOK_ADD,
+  SINGLE_BOOK_ADD_SUCCESS,
+  SINGLE_BOOK_ADD_FAILED
 } from "../actions/BookActions";
 
 const initialState = {
@@ -92,6 +95,24 @@ export default (state = initialState, action) => {
         error: ""
       };
     case SINGLE_BOOK_UPDATE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
+    case SINGLE_BOOK_ADD:
+      return {
+        ...state,
+        isLoading: true,
+        error: ""
+      };
+    case SINGLE_BOOK_ADD_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        error: ""
+      };
+    case SINGLE_BOOK_ADD_FAILED:
       return {
         ...state,
         isLoading: false,

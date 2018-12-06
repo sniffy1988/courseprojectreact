@@ -1,19 +1,22 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import { AddBook } from "../components";
+import { getToken } from "../store/selectors/userSelectors";
+import { updateBook, addBook } from "../store/actions/BookActions";
+import initialBook from "../constants/initialBook";
 
 class AddBookPage extends Component {
   // In this component need to check if this add new book or we need to edit exists book
   isNewBook = () => {
     const { location } = this.props;
-    return location.pathname.includes("/new");
+    return location.pathname.includes("/add-book");
   };
 
-  handleBook = () => {
-    //
-    const newBookHandler = () => {};
-    const editBookHandler = () => {};
-    return this.isNewBook() ? newBookHandler : editBookHandler;
+  handleBook = book => {
+    const { updateBook, addBook, token } = this.props;
+    return this.isNewBook() ? addBook(book, token) : updateBook(book, token);
   };
 
   render() {
@@ -22,7 +25,7 @@ class AddBookPage extends Component {
       <div>
         <AddBook
           isNew={this.isNewBook()}
-          book={this.isNewBook() ? null : location.state}
+          book={this.isNewBook() ? initialBook : location.state}
           handleBook={this.handleBook}
         />
       </div>
@@ -30,4 +33,16 @@ class AddBookPage extends Component {
   }
 }
 
-export default AddBookPage;
+export default connect(
+  state => {
+    return {
+      token: getToken(state)
+    };
+  },
+  dispatch => {
+    return {
+      updateBook: bindActionCreators(updateBook, dispatch),
+      getBook: bindActionCreators(addBook, dispatch)
+    };
+  }
+)(AddBookPage);

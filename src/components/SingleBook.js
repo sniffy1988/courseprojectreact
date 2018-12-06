@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 class SingleBook extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     handeEdit: PropTypes.func.isRequired,
     handeDelete: PropTypes.func.isRequired
+  };
+
+  goBack = () => {
+    this.props.history.goBack();
   };
 
   render() {
@@ -39,10 +44,13 @@ class SingleBook extends Component {
           >
             Delete book
           </button>
+          <button className='ui button green' onClick={this.goBack}>
+            Go back
+          </button>
         </div>
       </div>
     );
   }
 }
 
-export default SingleBook;
+export default withRouter(SingleBook);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { withRouter } from "react-router-dom";
 
 import { FormField } from "../components";
 
@@ -11,18 +12,23 @@ class AddBook extends Component {
     handleBook: PropTypes.func.isRequired,
     book: PropTypes.object.isRequired
   };
+  backHandler = e => {
+    e.preventDefault();
+    const { history } = this.props;
+    history.goBack();
+  };
+
   render() {
     const { book } = this.props;
-    console.log(this.props.book);
+
     return (
       <div>
         <Formik
           initialValues={book}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 500);
+            const { handleBook, history } = this.props;
+            handleBook(values);
+            setSubmitting(false);
           }}
           validationSchema={Yup.object().shape({
             isbn: Yup.string().required("Required"),
@@ -149,13 +155,18 @@ class AddBook extends Component {
                   onChangeHandler={handleChange}
                   onBlurHandler={handleBlur}
                 />
-                <button
-                  type='submit'
-                  disable={isSubmitting.toString()}
-                  className='ui button blue'
-                >
-                  {isSubmitting ? "Sending..." : "Submit"}
-                </button>
+                <div className='ui buttons'>
+                  <button
+                    type='submit'
+                    disable={isSubmitting.toString()}
+                    className='ui button blue'
+                  >
+                    {isSubmitting ? "Sending..." : "Submit"}
+                  </button>
+                  <a href='/' onClick={this.backHandler} className='ui button'>
+                    Back
+                  </a>
+                </div>
               </form>
             );
           }}
@@ -165,4 +176,4 @@ class AddBook extends Component {
   }
 }
 
-export default AddBook;
+export default withRouter(AddBook);

@@ -112,3 +112,23 @@ export const updateBook = (book, token) => async dispatch => {
     });
   }
 };
+
+export const addBook = (book, token) => async dispatch => {
+  dispatch({
+    type: SINGLE_BOOK_ADD
+  });
+
+  try {
+    const { data } = await axios.post(`${API_URL}/books/`, book);
+
+    dispatch({
+      type: SINGLE_BOOK_ADD_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: SINGLE_BOOK_ADD_FAILED,
+      payload: error.message
+    });
+  }
+};
