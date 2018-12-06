@@ -79,8 +79,6 @@ export const deleteBook = (isbn, token) => async dispatch => {
     dispatch({
       type: SINGLE_BOOK_DELETE_SUCCESS
     });
-
-    getBooks(token);
   } catch (error) {
     dispatch({
       type: SINGLE_BOOK_DELETE_FAILED,

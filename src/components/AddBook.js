@@ -10,7 +10,8 @@ class AddBook extends Component {
   static propTypes = {
     isNew: PropTypes.bool.isRequired,
     handleBook: PropTypes.func.isRequired,
-    book: PropTypes.object.isRequired
+    book: PropTypes.object.isRequired,
+    error: PropTypes.string
   };
   backHandler = e => {
     e.preventDefault();
@@ -26,9 +27,12 @@ class AddBook extends Component {
         <Formik
           initialValues={book}
           onSubmit={(values, { setSubmitting }) => {
-            const { handleBook, history } = this.props;
+            const { handleBook, history, error } = this.props;
             handleBook(values);
             setSubmitting(false);
+            if (error !== "") {
+              history.push("/books");
+            }
           }}
           validationSchema={Yup.object().shape({
             isbn: Yup.string().required("Required"),
@@ -51,6 +55,7 @@ class AddBook extends Component {
               handleBlur,
               handleSubmit
             } = props;
+            console.log(values);
             return (
               <form
                 className={`ui form ${errors ? "error" : ""}`}
@@ -80,7 +85,7 @@ class AddBook extends Component {
                 />
                 <FormField
                   text='Subtitle'
-                  name='Subtitle'
+                  name='subtitle'
                   type='text'
                   id='subtitle'
                   placeholder='Subtitle'

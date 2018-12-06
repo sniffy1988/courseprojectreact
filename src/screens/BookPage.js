@@ -8,7 +8,7 @@ import {
   deleteBook
 } from "../store/actions/BookActions";
 import { getToken } from "../store/selectors/userSelectors";
-import { getBook } from "../store/selectors/BooksSelectors";
+import { getBook, getError } from "../store/selectors/BooksSelectors";
 
 class BookPage extends Component {
   componentDidMount() {
@@ -21,9 +21,13 @@ class BookPage extends Component {
   };
 
   handleDelete = isbn => {
-    const { deleteBook, token, history } = this.props;
-    deleteBook(isbn, token);
-    history.push("/books");
+    const { deleteBook, token, history, error } = this.props;
+    if (error === "") {
+      deleteBook(isbn, token);
+    }
+    if (error !== "") {
+      history.push("/books");
+    }
   };
 
   render() {
@@ -31,6 +35,7 @@ class BookPage extends Component {
       <div>
         <SingleBook
           book={this.props.book}
+          error={this.props.error}
           handeEdit={this.handleEdit}
           handeDelete={this.handleDelete}
         />
@@ -43,7 +48,8 @@ export default connect(
   state => {
     return {
       token: getToken(state),
-      book: getBook(state)
+      book: getBook(state),
+      error: getError(state)
     };
   },
   dispatch => {

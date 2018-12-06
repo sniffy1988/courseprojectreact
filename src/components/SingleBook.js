@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
+import ErrorMessage from "./ErrorMessage";
+
 class SingleBook extends Component {
   static propTypes = {
     book: PropTypes.object.isRequired,
     handeEdit: PropTypes.func.isRequired,
-    handeDelete: PropTypes.func.isRequired
+    handeDelete: PropTypes.func.isRequired,
+    error: PropTypes.string
   };
 
   goBack = () => {
@@ -14,7 +17,7 @@ class SingleBook extends Component {
   };
 
   render() {
-    const { book, handeEdit, handeDelete } = this.props;
+    const { book, handeEdit, handeDelete, error } = this.props;
     return (
       <div>
         <h1>{book.title}</h1>
@@ -48,6 +51,7 @@ class SingleBook extends Component {
             Go back
           </button>
         </div>
+        <ErrorMessage error={error} />
       </div>
     );
   }
